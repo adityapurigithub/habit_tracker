@@ -1,0 +1,116 @@
+<div class="container-fluid">
+  <div class="header">
+    <h2>Habit Tracker</h2>
+    <h6><%=user.email%></h6>
+    <a href="/user/logout" class="btn btn-outline-dark">Logout</a>
+  </div>
+
+  <div class="habit-wrapper">
+    <h2>
+      <i>Start a New Habit Now</i>
+    </h2>
+    <form action="/add-habit" method="post">
+      <div class="form-container">
+        <input
+          type="text"
+          name="habit"
+          placeholder="Enter New Habit"
+          required
+        />
+        <button type="submit">Add</button>
+      </div>
+    </form>
+    <%if(habit.length===0){%>
+    <h2 style="padding: 30px">
+      <i>No Habits!!! Please Start With A New Habit.</i>
+    </h2>
+
+    <%}else{%>
+    <div class="display">
+      <form action="/view?email=<%=user.email%>" method="post">
+        <div class="options">
+          <%if(user.view==="daily"){%>
+          <button class="btn btn-dark" disabled>Daily</button>
+          <button class="btn btn-dark">Weekly</button>
+          <%}else{%>
+          <button class="btn btn-dark">Daily</button>
+          <button class="btn btn-dark" disabled>Weekly</button>
+          <%}%>
+        </div>
+      </form>
+      <div class="about-icons">
+        <div><b>Done</b> <i class="fas fa-check-circle"></i></div>
+        <div><b>Not done</b> <i class="fas fa-times-circle"></i></div>
+        <div><b>No Action</b> <i class="fas fa-minus-circle"></i></div>
+      </div>
+      <%if(user.view==="daily"){%> <%for(let i of habit){%>
+      <ul class="habit-list">
+        <a href="/status?id=<%=i._id%>">
+          <%if(i.no_action){%>
+          <i class="fas fa-minus-circle"></i>
+          <%}else if(i.done){%>
+          <i class="fas fa-check-circle"></i>
+          <%} else {%>
+          <i class="fas fa-times-circle"></i>
+          <%}%>
+        </a>
+        <li>
+          <b><i><%=i.habit%></i></b>
+        </li>
+        <div class="fav-del">
+          <a href="/fav?id=<%=i._id%>" class="favourite">
+            <%if(i.favourite){%>
+            <i class="fas fa-star"></i>
+            <%}else{%>
+            <i class="fa fa-star-o"></i>
+            <%}%>
+          </a>
+          <a href="/remove/?id=<%=i._id%>">
+            <i class="fas fa-trash-alt"></i>
+          </a>
+        </div>
+      </ul>
+      <% }%> <%}else{%> <%for(let i of habit){%>
+
+      <ul class="habit-list">
+        <div class="habit-name">
+          <!-- <input type="checkbox" class="input-box" /> -->
+          <li>
+            <b><i><%=i.habit%></i></b>
+          </li>
+        </div>
+        <div class="calender">
+          <%for(let day of days){%>
+          <div class="date">
+            <img src="/images/calender.png" />
+            <div><%= day.day + ", " +day.date.slice(-2) %></div>
+            <a href="/status?id=<%=i._id%>&day=<%=day.day%>">
+              <%if(i.no_action){%>
+              <i class="fas fa-minus-circle"></i>
+              <%}else if(i.done){%>
+              <i class="fas fa-check-circle"></i>
+              <%} else {%>
+              <i class="fas fa-times-circle"></i>
+              <%}%>
+            </a>
+          </div>
+          <%}%>
+        </div>
+        <div class="fav-del">
+          <a href="/fav?id=<%=i._id%>" class="favourite">
+            <%if(i.favourite){%>
+            <i class="fas fa-star"></i>
+            <%}else{%>
+            <i class="fa fa-star-o"></i>
+            <%}%>
+          </a>
+          <a href="/remove/?id=<%=i._id%>">
+            <i class="fas fa-trash-alt"></i>
+          </a>
+        </div>
+      </ul>
+      <% }%> <%}%>
+    </div>
+    <%}%>
+  </div>
+</div>

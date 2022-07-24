@@ -1,0 +1,207 @@
+body {
+  width: 100vw;
+  background-color: #ffa69e;
+  background-image: linear-gradient(315deg, #ffc4bf 0%, #a99da3 74%);
+  background-attachment: fixed;
+}
+.signup-login-form {
+  position: absolute;
+  top: 10%;
+  left: 30%;
+}
+.container-fluid {
+  width: 100%;
+}
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed red;
+  box-shadow: 1px 0 10px 1px rgb(0 0 0 / 30%);
+  padding: 15px;
+}
+.header h2 {
+  width: 75%;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  word-spacing: 3px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 3px #ff4848, 0 0 5px #4646ff;
+  cursor: default;
+}
+.habit-wrapper {
+  width: 100%;
+  min-height: 80vh;
+  height: auto;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #a9c9ff;
+  background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
+
+  box-shadow: 1px 1px 10px 1px rgb(0 0 0 / 30%);
+  transition: 0.5s all ease;
+}
+
+.habit-wrapper form {
+  margin: 10px 0;
+  width: 100%;
+}
+.form-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-container input {
+  width: 70%;
+  height: 50px;
+  outline: none;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.form-container button {
+  height: 50px;
+  width: 10%;
+  border: none;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: rgb(255, 186, 59);
+}
+.form-container button:active {
+  background-color: orange;
+}
+
+.display {
+  width: 80%;
+  /* height: 10vh; */
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-between;
+}
+.display form {
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.display form .options {
+  width: 35%;
+  display: flex;
+}
+.display .options button {
+  width: 100%;
+  padding: 7px;
+  border: none;
+  outline: none;
+  margin: 2px;
+  border: 1px solid black;
+
+  border-radius: 5px;
+}
+.display .about-icons {
+  width: 40%;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  padding: 10px 5px;
+}
+
+.display ul {
+  list-style: none;
+  width: 100%;
+  font-size: 1.2rem;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(247, 240, 254, 0.7);
+  transition: 1s ease;
+}
+.display input {
+  width: 18px;
+  height: 18px;
+  transition: 0.2s ease;
+}
+.display input:active {
+  height: 8px;
+  background-color: black;
+}
+.display ul .fav-del {
+  width: 6%;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+.display button {
+  width: auto;
+  background-color: #88331b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem;
+  opacity: 1;
+}
+
+/* week ui */
+.habit-list .habit-name {
+  width: 12%;
+  word-break: keep-all;
+  display: flex;
+  font-size: 1rem;
+  text-align: center;
+  justify-content: center;
+}
+.habit-list .habit-name .input-box {
+  margin-right: 10px;
+}
+.habit-list .calender {
+  width: 80%;
+  height: 50px;
+  margin: 10px;
+  display: flex;
+}
+
+.habit-list .calender .date {
+  width: 100%;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin: 2px;
+  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1);
+}
+.habit-list .calender .date img {
+  width: 30%;
+}
+.habit-list .calender .date i {
+  font-size: 1rem;
+  padding: 2px;
+}
+.done-mation {
+  opacity: 0.5;
+}
+@media screen and (max-width: 768px) {
+  .signup-login-form {
+    position: absolute;
+    top: 10%;
+    left: 0;
+  }
+}

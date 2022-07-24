@@ -43,16 +43,20 @@
         <div><b>Not done</b> <i class="fas fa-times-circle"></i></div>
         <div><b>No Action</b> <i class="fas fa-minus-circle"></i></div>
       </div>
-      <%if(user.view==="daily"){%> <%for(let i of habit){%>
+      <%if(user.view==="daily"){%> <%for(let i of habit){let tzoffset = (new
+      Date()).getTimezoneOffset() * 60000, found=false, status=''; var today
+      =(new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
+      i.status.find(function (item, index) { if(item.day === today) { found =
+      true; status = item.complete; } });%>
       <ul class="habit-list">
-        <a href="/status?id=<%=i._id%>">
-          <%if(i.no_action){%>
-          <i class="fas fa-minus-circle"></i>
-          <%}else if(i.done){%>
+        <a href="/status?id=<%=i._id%>&date=<%= today %>">
+          <% if(found && status==='yes'){ %>
           <i class="fas fa-check-circle"></i>
-          <%} else {%>
+          <% } else if(found && status==='no'){ %>
           <i class="fas fa-times-circle"></i>
-          <%}%>
+          <% } else { %>
+          <i class="fas fa-minus-circle"></i>
+          <% } %>
         </a>
         <li>
           <b><i><%=i.habit%></i></b>
@@ -80,18 +84,20 @@
           </li>
         </div>
         <div class="calender">
-          <%for(let day of days){%>
+          <%for(let day of days){ let found = false, status = '';
+          i.status.find(function (item, index) { if(item.day === day.date) {
+          found = true; status = item.complete; } });%>
           <div class="date">
             <img src="/images/calender.png" />
             <div><%= day.day + ", " +day.date.slice(-2) %></div>
-            <a href="/status?id=<%=i._id%>&day=<%=day.day%>">
-              <%if(i.no_action){%>
-              <i class="fas fa-minus-circle"></i>
-              <%}else if(i.done){%>
+            <a href="/status?id=<%=i._id%>&date=<%= day.date %>">
+              <% if(found && status==='yes'){ %>
               <i class="fas fa-check-circle"></i>
-              <%} else {%>
+              <% } else if(found && status==='no'){ %>
               <i class="fas fa-times-circle"></i>
-              <%}%>
+              <% } else { %>
+              <i class="fas fa-minus-circle"></i>
+              <% } %>
             </a>
           </div>
           <%}%>

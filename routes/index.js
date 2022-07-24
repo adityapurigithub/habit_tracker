@@ -73,16 +73,21 @@ function getD(n) {
 
 router.post("/add-habit", function (req, res) {
   // console.log("req.body contains...", req.body);
-
+  let status = [],
+    tzoffset = new Date().getTimezoneOffset() * 60000;
+  var localISOTime = new Date(Date.now() - tzoffset).toISOString().slice(0, 10);
+  status.push({ date: localISOTime, complete: "none" });
   Habit.create(
     {
       habit: req.body.habit,
+      status: status,
     },
     function (err, data) {
       if (err) {
         console.log(err);
       }
       console.log("Data", data);
+
       res.redirect("back");
     }
   );
@@ -105,30 +110,37 @@ router.post("/view", function (req, res) {
 });
 router.get("/status", function (req, res) {
   let id = req.query.id;
-  let day = req.query.day;
+  let d = req.query.date;
   Habit.findById(id, function (err, habit) {
     if (err) {
       console.log(err);
-    }
-    console.log(habit);
-
-    if (habit.no_action) {
-      habit.no_action = false;
-      habit.done = true;
-      habit.not_done = false;
-    } else if (habit.done) {
-      habit.done = false;
-      habit.no_action = false;
-      habit.not_done = true;
     } else {
-      habit.done = false;
-      habit.no_action = true;
-      habit.not_done = false;
+      let status = habit.status;
+      let found = false;
+      status.find(function (item, index) {
+        if (item.day === d) {
+          if (item.complete === "yes") {
+            item.complete = "no";
+          } else if (item.complete === "no") {
+            item.complete = "none";
+          } else if (item.complete === "none") {
+            item.complete = "yes";
+          }
+          found = true;
+        }
+      });
+      if (!found) {
+        status.push({ day: d, complete: "yes" });
+      }
+      habit.status = status;
+      habit
+        .save()
+        .then((habit) => {
+          console.log(habit);
+          res.redirect("back");
+        })
+        .catch((err) => console.log(err));
     }
-
-    habit.save();
-
-    res.redirect("back");
   });
 });
 router.get("/fav", function (req, res) {

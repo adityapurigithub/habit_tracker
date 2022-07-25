@@ -1,4 +1,5 @@
-const port = 8000;
+// const port = 8000;
+const port = process.env.PORT || 8000;
 
 //requiring all basic libraries..
 const express = require("express");

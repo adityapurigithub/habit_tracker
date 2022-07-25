@@ -5,7 +5,7 @@ const router = express.Router();
 
 //required models
 const Habit = require("../models/Habit");
-const User = require("../models/user");
+const User = require("../models/User");
 
 //welcome page
 router.get("/", function (req, res) {

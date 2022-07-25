@@ -21,6 +21,9 @@
         />
       </div>
       <div class="col-md-9 col-lg-8 col-xl-4">
+        <%if(msg.length>0){%>
+        <div class="alert alert-success"><%=msg%></div>
+        <%}%>
         <form action="/user/loging" method="post">
           <div class="form-outline mb-4">
             <label class="form-label" for="form3Example3">

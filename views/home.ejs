@@ -20,7 +20,13 @@
         <button type="submit">Add</button>
       </div>
     </form>
-    <%if(habit.length===0){%>
+    <%if(remove_msg.length>0){%>
+    <div class="alert alert-success"><%=remove_msg%></div>
+    <%}%> <%if(fav_msg.length>0){%>
+    <div class="alert alert-success"><%=fav_msg%></div>
+    <%}%> <%if(add_habit.length>0){%>
+    <div class="alert alert-success"><%=add_habit%></div>
+    <%}%> <%if(habit.length===0){%>
     <h2 style="padding: 30px">
       <i>No Habits!!! Please Start With A New Habit.</i>
     </h2>

@@ -3,18 +3,22 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 
+//login---get
 router.get("/login", function (req, res) {
   res.render("login", {
     title: "Login",
+    msg: req.flash("success_msg"),
   });
 });
 
+//register---get
 router.get("/register", function (req, res) {
   res.render("register", {
     title: "Register",
   });
 });
 
+//signing-up
 router.post("/signingup", function (req, res) {
   // console.log(req.body);
   User.create(
@@ -27,7 +31,8 @@ router.post("/signingup", function (req, res) {
         console.log("err in creating user..", err);
         return;
       }
-      console.log(data);
+      // console.log(data);
+      req.flash("success_msg", "Successfully registered you can now login");
       res.redirect("/user/login");
     }
   );
@@ -52,7 +57,9 @@ router.post("/loging", function (req, res) {
   );
 });
 
+//logout to welcome page
 router.get("/logout", function (req, res) {
+  req.flash("logout_message", "You were Logged out!!");
   res.redirect("/");
 });
 

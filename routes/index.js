@@ -1,16 +1,21 @@
 const express = require("express");
 
+//using the express router
 const router = express.Router();
 
+//required models
 const Habit = require("../models/Habit");
 const User = require("../models/user");
 
+//welcome page
 router.get("/", function (req, res) {
   res.render("welcome", {
     title: "Welcome",
+    msg: req.flash("logout_message"),
   });
 });
 
+//home page
 router.get("/home", function (req, res) {
   User.findOne({ email: req.query.email }).then((user) => {
     // i am finding all the habit irrespective of a particular user as its not necessary(ATQ)....
@@ -35,11 +40,15 @@ router.get("/home", function (req, res) {
         habit: data,
         user: user,
         days: days,
+        remove_msg: req.flash("remove_msg"),
+        fav_msg: req.flash("fav_msg"),
+        add_habit: req.flash("add_habit"),
       });
     });
   });
 });
 
+//function to define the date str
 function getD(n) {
   let d = new Date();
   d.setDate(d.getDate() + n);
@@ -71,8 +80,11 @@ function getD(n) {
   return { date: newDate, day };
 }
 
+//adding the new  habit
 router.post("/add-habit", function (req, res) {
   // console.log("req.body contains...", req.body);
+
+  //adding a habit and updating the status
   let status = [],
     tzoffset = new Date().getTimezoneOffset() * 60000;
   var localISOTime = new Date(Date.now() - tzoffset).toISOString().slice(0, 10);
@@ -86,12 +98,15 @@ router.post("/add-habit", function (req, res) {
       if (err) {
         console.log(err);
       }
-      console.log("Data", data);
+      // console.log("Data", data);
+      req.flash("add_habit", "Habit Added");
 
       res.redirect("back");
     }
   );
 });
+
+//changing the user view from daily to weekly
 router.post("/view", function (req, res) {
   User.findOne({ email: req.query.email })
     .then((user) => {
@@ -108,9 +123,12 @@ router.post("/view", function (req, res) {
       return;
     });
 });
+//status tells that whether a habit is completed or not
 router.get("/status", function (req, res) {
   let id = req.query.id;
   let d = req.query.date;
+
+  //finding the habit
   Habit.findById(id, function (err, habit) {
     if (err) {
       console.log(err);
@@ -129,10 +147,12 @@ router.get("/status", function (req, res) {
           found = true;
         }
       });
+      //add the habit if not found
       if (!found) {
         status.push({ day: d, complete: "yes" });
       }
       habit.status = status;
+      //saving the habit
       habit
         .save()
         .then((habit) => {
@@ -143,6 +163,8 @@ router.get("/status", function (req, res) {
     }
   });
 });
+
+// favouriting a habit
 router.get("/fav", function (req, res) {
   // console.log(req.query);
   let id = req.query.id;
@@ -153,14 +175,18 @@ router.get("/fav", function (req, res) {
     }
     if (!habit.favourite) {
       habit.favourite = true;
+      req.flash("fav_msg", "Added to Favrorites..");
     } else {
       habit.favourite = false;
+      req.flash("fav_msg", "Removed from Favrorites..");
     }
     habit.save();
+
     res.redirect("back");
   });
 });
 
+//for deleting a habit
 router.get("/remove", function (req, res) {
   console.log(req.query);
   let id = req.query.id;
@@ -169,6 +195,7 @@ router.get("/remove", function (req, res) {
       console.log(err);
       return;
     }
+    req.flash("remove_msg", "Habit Removed");
     res.redirect("back");
   });
 });

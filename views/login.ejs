@@ -1,0 +1,73 @@
+<section class="container-fluid">
+  <div class="container-fluid py-5 h-100">
+    <h2
+      style="
+        text-align: center;
+        letter-spacing: 2px;
+        word-spacing: 2px;
+        margin-bottom: 40px;
+      "
+    >
+      Login Here
+    </h2>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-9 col-lg-8 col-xl-7">
+        <img
+          src="/images/1.jpg"
+          class="img-fluid"
+          alt="Sample image"
+          style="border: 1px solid red"
+          width="100%"
+        />
+      </div>
+      <div class="col-md-9 col-lg-8 col-xl-4">
+        <%if(msg.length>0){%>
+        <div class="alert alert-success"><%=msg%></div>
+        <%}%>
+        <form action="/user/loging" method="post">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form3Example3">
+              Email address
+            </label>
+            <input
+              type="email"
+              id="form3Example3"
+              class="form-control form-control-lg"
+              placeholder="Enter email address"
+              name="email"
+              required
+            />
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label" for="form3Example4"> Password </label>
+            <input
+              type="password"
+              class="form-control form-control-lg"
+              placeholder="Enter Password"
+              name="pass"
+              required
+            />
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg btn-block"
+              style="padding-left: 2.5rem; padding-right: 2.5rem"
+            >
+              Login
+            </button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">
+              Don't have an account?
+              <a href="/user/register" class="link-danger"> Register </a>
+            </p>
+            <p class="big fw-bold mt-2 pt-1 mb-0">or</p>
+            <p class="small fw-bold mt-2 pt-1 mb-0">
+              <a href="/" class="link-danger"> Go Back </a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+<!-- Welcome Page -->
+<div class="container-fluid p-0" style="overflow: hidden">
+  <div class="row vh-100">
+    <div class="col-xs-8 col-md-12 col-xl-12 vh-100">
+      <img src="/images/bg.jpg" alt="Bg" width="100%" height="100%" />
+    </div>
+    <div class="signup-login-form col-md-5 col-lg-5 col-xl-5 m-auto">
+      <%if(msg.length>0){%>
+      <div class="alert alert-success"><%=msg%></div>
+      <%}%>
+      <div class="card card-body text-center">
+        <img
+          src="/images/title.jpg"
+          alt="Making Habits!"
+          width="100%"
+          height="200px"
+        />
+        <!-- Option to register or log-in -->
+        <p>Create an account or login</p>
+        <a href="/user/register" class="btn btn-outline-primary btn-block mb-1"
+          >Register</a
+        >
+        <a href="/user/login" class="btn btn-outline-primary btn-block mb-2"
+          >Login</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

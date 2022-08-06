@@ -204,4 +204,13 @@ body {
     top: 10%;
     left: 0;
   }
+  .display {
+    width: 100%;
+  }
+  .display .about-icons {
+    width: 100%;
+  }
+  .display ul {
+    justify-content: space-evenly;
+  }
 }

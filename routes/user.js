@@ -40,7 +40,7 @@ router.post("/signingup", function (req, res) {
 
 router.post("/loging", function (req, res) {
   const { email, pass } = req.body;
-  User.findOne(
+  User.find(
     {
       email: email,
       password: pass,

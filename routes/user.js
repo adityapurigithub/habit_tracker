@@ -40,7 +40,7 @@ router.post("/signingup", function (req, res) {
 
 router.post("/loging", function (req, res) {
   const { email, pass } = req.body;
-  User.find(
+  User.findOne(
     {
       email: email,
       password: pass,
@@ -49,8 +49,7 @@ router.post("/loging", function (req, res) {
       if (err) {
         console.log("err", err);
       }
-      if (data == null) {
-      } else {
+      if (data !== null) {
         res.redirect(`/home?email=${email}`);
       }
     }
